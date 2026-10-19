@@ -249,9 +249,9 @@ DOCUMENTS = [
  ("Proposal Documents", "Individual proposal reports for each member.", "done", [
    ("Proposal — Dissanayaka D. M. T. M", "https://drive.google.com/file/d/1svylC0e1Fyo0_bSDFtGGYAe2-xfRZFSq/view?usp=share_link"), ("Proposal — Sudugodage S. R", "https://drive.google.com/file/d/18vATlpxY6rkbAUlLGKr4nXmOQXY09wkl/view?usp=share_link"),
    ("Proposal — Aarabhi A. Y", "https://drive.google.com/file/d/1HBKPnstFyMppco2UJ128wkgF4RQCzlH_/view?usp=share_link"), ("Proposal — Danishiya Appulingam", "https://drive.google.com/file/d/1n02K_VRajzH4D7Lv92QjyDYjxuykh3jr/view?usp=share_link")]),
- ("Checklist Documents", "Supporting reports required for submission.", "now", [
+ ("Checklist Documents", "Supporting reports required for submission.", "done", [
    ("Literature review master sheet", "https://docs.google.com/spreadsheets/d/1lrwGDo5HV9n5vyC0cXNRqEz2mHR7DYSn/edit?usp=share_link&ouid=107658917753633491887&rtpof=true&sd=true"), ("Data analysis report", "https://drive.google.com/file/d/1uTq2UxEO21-CkjQDgqu0Q3HBdrw7yRno/view?usp=share_link"),
-   ("Ethical analysis report", ""), ("MLOps report", "")]),
+   ("Ethical analysis report", "https://drive.google.com/file/d/1BF0ZtpRR2ctGX94VJulj85yXp1v5OnM4/view?usp=share_link"), ("MLOps report", "https://drive.google.com/file/d/1hjIehHhOR1YNM5vQhKLqLHPEnuqr0qmI/view?usp=share_link")]),
  ("Draft Thesis", "Draft individual theses and the main group draft.", "done", [
    ("Draft Thesis — Group (main)", "https://drive.google.com/file/d/19H3kfNYYJTwZezm-t7Sfo0frOZsiw8iI/view?usp=share_link"), ("Draft Thesis — Dissanayaka D. M. T. M", "https://drive.google.com/file/d/1WOIVhubDdG_XY_at2QEFJFFkBM_Banc8/view?usp=share_link"),
    ("Draft Thesis — Sudugodage S. R", "https://drive.google.com/file/d/1swKZUoEJwO4t_6t4ieb_esqqdnuaBSIx/view?usp=share_link"), ("Draft Thesis — Aarabhi A. Y", "https://drive.google.com/file/d/14u03W9u6ADtDJ0JsMDN0JDIcLm9Q6csZ/view?usp=share_link"),
