@@ -338,7 +338,7 @@ def nav(cur):
   <ul id="navList">{"".join(items)}</ul>
 </div></header>'''
 
-def page(fname, title, desc, body, hero=True, crumb=None, show_desc=True):
+def page(fname, title, desc, body, hero=True, crumb=None, show_desc=True, script=""):
     banner = ""
     if crumb:
         banner = f'''<section class="page-hero"><div class="wrap">
@@ -364,6 +364,7 @@ def page(fname, title, desc, body, hero=True, crumb=None, show_desc=True):
 {body}
 </main>
 <footer><div class="wrap"><span>© 2026 <b>{NAME}</b> Research Project. All rights reserved.</span><nav>{foot}</nav></div></footer>
+{script}
 </body>
 </html>
 '''
@@ -547,10 +548,38 @@ for d in ("documents", "slides", "images"):
     open(f"{OUT}/{d}/.keep", "w").close()
 # css/style.css is edited directly; this script only rebuilds the HTML pages.
 # Home page scrolls through every section, first to last.
-home_full = (home + domain_body + milestones.replace('id="', 'id="home-ms-').replace('href="#', 'href="#home-ms-')
-             + documents + presentations + use_cases + recognitions + about_people + contact.replace(' first"', '"'))
+#home_full = (home + domain_body + milestones.replace('id="', 'id="home-ms-').replace('href="#', 'href="#home-ms-')
+             #+ documents + presentations + use_cases + recognitions + about_people + contact.replace(' first"', '"'))
+def part(nav_page, html_):
+    return f'<div data-nav="{nav_page}">{html_}</div>'
+home_full = (part("index.html", home)
+             + part("domain.html", domain_body)
+             + part("milestones.html", milestones.replace('id="', 'id="home-ms-').replace('href="#', 'href="#home-ms-'))
+             + part("documents.html", documents)
+             + part("presentations.html", presentations + use_cases)
+             + part("about.html", recognitions + about_people)
+             + part("contact.html", contact.replace(' first"', '"')))
+SCROLL_SPY = """<script>
+(function () {
+  var parts = [].slice.call(document.querySelectorAll('[data-nav]'));
+  var links = [].slice.call(document.querySelectorAll('#navList > li > a'));
+  function update() {
+    var cur = parts[0].getAttribute('data-nav');
+    parts.forEach(function (p) { if (p.getBoundingClientRect().top < 140) cur = p.getAttribute('data-nav'); });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4)
+      cur = parts[parts.length - 1].getAttribute('data-nav');
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === cur;
+      a.classList.toggle('active', on);
+      if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>"""
 out = {
- "index.html": page("index.html", "Home", "Multimodal AI for early risk assessment of neurodegenerative diseases — R26-DS-015 research project.", home_full),
+ "index.html": page("index.html", "Home", "Multimodal AI for early risk assessment of neurodegenerative diseases — R26-DS-015 research project.", home_full, script=SCROLL_SPY),
  "domain.html": page("domain.html", "Domain", "Literature survey, research gap, research problem, objectives, methodology and technologies.", domain, crumb="Domain"),
  "milestones.html": page("milestones.html", "Milestones", "Every assessment in the project, with its details, date and marks.", milestones, crumb="Milestones", show_desc=False),
  "documents.html": page("documents.html", "Documents", "Project charter, proposal, checklist and final documents.", documents, crumb="Documents"),
