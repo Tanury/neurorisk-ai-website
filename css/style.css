@@ -387,3 +387,4 @@ section.sec.first{padding-top:150px}
 .avail.done{background:rgba(22,163,74,.2);color:#4ADE80}
 .avail.now{background:rgba(217,119,6,.2);color:#FBBF24}
 .avail.upcoming{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+.rc-grid .wide{grid-column:1 / -1}

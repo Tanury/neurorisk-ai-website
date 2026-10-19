@@ -286,7 +286,24 @@ TEAM = [
 ]
 DEGREE = "Bachelor of Science (Hons) in Information Technology, specialising in Data Science"
 # (status, title, text, accepted?, [(label, value)])
-ACHIEVEMENTS = []
+# (status, title, text, accepted?, [(label, value)], link or "")
+ACHIEVEMENTS = [
+ ("Paper Submitted", "8th IEEE International Conference on Advancements in Computing (ICAC 2026)",
+  "Research paper submitted on learning shared representations from fluid biomarkers for cross-disease neurological risk assessment.",
+  False,
+  [("Paper Title", "Learning Representations from Fluid Biomarkers for Cross-Disease Neurological Risk Assessment"),
+   ("Conference", "ICAC 2026, Faculty of Computing, SLIIT"),
+   ("Dates", "9 – 10 December 2026, hybrid"),
+   ("Proceedings", "IEEE Xplore, indexed in Scopus")],
+  "https://icac.lk"),
+ ("Abstract Submitted", "AAIC Neuroscience Next 2027",
+  "Abstract submitted to the Alzheimer's Association conference for students and early-career researchers in neuroscience.",
+  False,
+  [("Organiser", "Alzheimer's Association"),
+   ("Format", "Poster presentation if accepted, hybrid"),
+   ("Dates", "15 – 18 February 2027")],
+  "https://www.alz.org/neurosciencenext/abstracts"),
+]
 
 CONTACT_EMAIL = "neuroriskairesearch@gmail.com"
 CONTACT_PHONE = "+94 70 660 2028"
@@ -378,10 +395,15 @@ home = f'''<section class="hero" id="home"><div class="wrap">
 ''' + sec("abstract", "Abstract", "A short summary of the research.",
   f'<div class="card abstract">{"".join(f"<p>{E(p)}</p>" for p in ABSTRACT)}'
   f'<div class="kw">{"".join(f"<span>{E(k)}</span>" for k in KEYWORDS)}</div></div>') \
-+ sec("", "Core Features", "What the system offers clinicians and researchers.",
-  '<div class="grid2">' + "".join(f'<div class="card feat"><div class="icon-box">{ic(i)}</div><div><h4>{E(n)}</h4><p>{E(d)}</p></div></div>' for i, n, d in FEATURES) + '</div>', "soft") \
-+ sec("", "Use Cases", "Where multimodal risk assessment can help.",
+  + sec("", "Core Features", "What the system offers clinicians and researchers.",
+  '<div class="grid2">' + "".join(f'<div class="card feat"><div class="icon-box">{ic(i)}</div><div><h4>{E(n)}</h4><p>{E(d)}</p></div></div>' for i, n, d in FEATURES) + '</div>', "soft")
+
+use_cases = sec("use-cases", "Use Cases", "Where multimodal risk assessment can help.",
   '<div class="grid4">' + "".join(f'<div class="card uc"><div class="icon-box" style="margin-bottom:12px">{ic(i)}</div><h4>{E(n)}</h4><p>{E(d)}</p></div>' for i, n, d in USE_CASES) + '</div>')
+#+ sec("", "Core Features", "What the system offers clinicians and researchers.",
+  #'<div class="grid2">' + "".join(f'<div class="card feat"><div class="icon-box">{ic(i)}</div><div><h4>{E(n)}</h4><p>{E(d)}</p></div></div>' for i, n, d in FEATURES) + '</div>', "soft") \
+#+ sec("", "Use Cases", "Where multimodal risk assessment can help.",
+ # '<div class="grid4">' + "".join(f'<div class="card uc"><div class="icon-box" style="margin-bottom:12px">{ic(i)}</div><h4>{E(n)}</h4><p>{E(d)}</p></div>' for i, n, d in USE_CASES) + '</div>')
 
 # ---------------------------------------------------------------- DOMAIN
 subnav = '<nav class="subnav" aria-label="Domain sections"><div class="wrap">' + "".join(
@@ -465,7 +487,7 @@ documents = sec("", "Project Documents", "Documents already produced are linked 
 pres = '<div class="grid2">' + "".join(
  f'<div class="card pres"><span class="status {s}">{STATUS[s]}</span><h4>{E(n)}</h4><p>{E(d)}</p>{link_btn(f, "btn-navy", "View Slides", "play")}</div>'
  for n, d, s, f in PRESENTATIONS) + '</div>'
-presentations = sec("", "Research Presentations", "Slides from past reviews, with space kept for upcoming presentations.", pres)
+presentations = sec("", "Research Presentations", "Slides from all reviews held throughout the research timeline", pres)
 
 # ---------------------------------------------------------------- ABOUT
 def person(name, pill, sub, comp, email, li, photo, sid=""):
@@ -477,15 +499,17 @@ def person(name, pill, sub, comp, email, li, photo, sid=""):
             + (f'<div class="socials">{soc}</div>' if soc else "") + '</div>')
 ach = ("".join(
   f'<div class="card rc"><span class="status {"done" if acc else "now"}">{ic("check" if acc else "award")}{E(st)}</span>'
-  f'<h3>{E(t)}</h3><p>{E(tx)}</p><div class="rc-grid">{"".join(f"<div><small>{E(k)}</small><b>{E(v)}</b></div>" for k, v in det)}</div></div>'
-  for st, t, tx, acc, det in ACHIEVEMENTS) if ACHIEVEMENTS else
+  f'<h3>{E(t)}</h3><p>{E(tx)}</p><div class="rc-grid">{"".join(f"<div{chr(32)+chr(99)+chr(108)+chr(97)+chr(115)+chr(115)+chr(61)+chr(34)+chr(119)+chr(105)+chr(100)+chr(101)+chr(34) if chr(84)+chr(105)+chr(116)+chr(108)+chr(101) in k else chr(32)[:0]}><small>{E(k)}</small><b>{E(v)}</b></div>" for k, v in det)}</div>'
+  + (f'<a class="btn-navy" href="{E(link)}" target="_blank" rel="noopener" style="display:inline-flex;padding:10px 18px;margin-top:18px">{ic("ext")}Visit conference site</a>' if link else "") + '</div>'
+  for st, t, tx, acc, det, link in ACHIEVEMENTS) if ACHIEVEMENTS else
   f'<div class="card empty">{ic("award")}<p style="margin-top:8px">Publications and awards will appear here once submitted.</p></div>')
-about = sec("", "Project Supervisors", "The academic staff guiding the research.",
+about_people = sec("", "Project Supervisors", "The academic staff guiding the research.",
   '<div class="people sup">' + "".join(person(n, r, d, "", e, l, p) for n, r, d, e, l, p in SUPERVISORS) + '</div>') \
 + sec("", "Research Team", "Group members, their components and contact details.",
-  '<div class="people team">' + "".join(person(n, "Undergraduate", DEGREE, c, e, l, p, sid) for n, sid, c, e, l, p in TEAM) + '</div>', "soft") \
-+ sec("achievements", "Achievements &amp; Publications", "Papers, conferences and competitions connected to this research.",
-  f'<div class="recog">{ach}</div>')
+  '<div class="people team">' + "".join(person(n, "Undergraduate", DEGREE, c, e, l, p, sid) for n, sid, c, e, l, p in TEAM) + '</div>', "soft")
+recognitions = sec("achievements", "Achievements &amp; Publications", "Papers, conferences and competitions connected to this research.",
+  f'<div class="recog">{ach}</div>', "soft")
+about = about_people + recognitions
 
 # ---------------------------------------------------------------- CONTACT
 #contact = sec("contact", "Contact Us", "Reach the team about the research, data or collaboration.",
@@ -524,7 +548,7 @@ for d in ("documents", "slides", "images"):
 # css/style.css is edited directly; this script only rebuilds the HTML pages.
 # Home page scrolls through every section, first to last.
 home_full = (home + domain_body + milestones.replace('id="', 'id="home-ms-').replace('href="#', 'href="#home-ms-')
-             + documents + presentations + about + contact.replace(' first"', '"'))
+             + documents + presentations + use_cases + recognitions + about_people + contact.replace(' first"', '"'))
 out = {
  "index.html": page("index.html", "Home", "Multimodal AI for early risk assessment of neurodegenerative diseases — R26-DS-015 research project.", home_full),
  "domain.html": page("domain.html", "Domain", "Literature survey, research gap, research problem, objectives, methodology and technologies.", domain, crumb="Domain"),
