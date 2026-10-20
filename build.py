@@ -58,10 +58,9 @@ def ini(n):
 # Links: put files in documents/ or slides/ (relative paths), or paste a
 # Google Drive "anyone with the link" URL. Leave "" while pending.
 
-TITLE = "Multimodal AI for early risk assessment of neurodegenerative diseases"
+TITLE = "Adaptive Multi-Modal Representation Learning for Neurological Risk Assessment across Alzheimer's, Parkinson's and Multiple Sclerosis"
 HIGHLIGHT = "early risk assessment"
-LEDE = ("Combining brain MRI, retinal OCT, EEG and fluid biomarkers to flag early signs of Alzheimer's, "
-        "Parkinson's and multiple sclerosis, with an explanation for every prediction.")
+LEDE = ("Combining brain MRI, retinal OCT, EEG, Voice and Fluid biomarkers to flag early signs of neurodegeneration, with an explanation for every prediction.")
 
 ABSTRACT = [
  "Neurodegenerative diseases such as Alzheimer's disease (AD), Parkinson's disease (PD) and multiple sclerosis (MS) "
